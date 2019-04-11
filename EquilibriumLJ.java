@@ -22,10 +22,11 @@ public class EquilibriumLJ {
 		}
 	}
 
-	/**generates an equilibrium HS in 2D with given density
+/**BENCHMARK TESTING OF 2d HARD SPHERE SYSTEMS
+	generates an equilibrium HS in 2D with given density
  *      @param n int, the number of particles in the fundamental simu box
  *      @param rho double, the number density
- *      @return Particle[] the list of the particles */
+ *      @return Particle[] the list of the particles 
         public static Box equilibrateHS(int n, double rho) {
                 double d = Math.sqrt(n*(1.0/rho));
                 Box pandora = new Box(n,d,2.5);
@@ -50,10 +51,10 @@ public class EquilibriumLJ {
                 }
                 return pandora;
         }
-
-	/**generates an equilibrium HS in 2D from an existing config
+	
+	generates an equilibrium HS in 2D from an existing config
  *  	@param pandora Box, the given already-equilibrated configuration
- *      @return Particle[] the list of the particles */
+ *      @return Particle[] the list of the particles 
         public static Box equilibrateHS(Box pandora) {
                 int n = pandora.getN();
                 double d = pandora.getD();
@@ -78,7 +79,7 @@ public class EquilibriumLJ {
                 }
                 return pandora;
         }
-
+*/
 
 	/**generates an equilibrium LJ in 2D with given density and temperature 
  * 	@param n int, the number of particles in the fundamental simu box
