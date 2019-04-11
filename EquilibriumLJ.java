@@ -14,24 +14,23 @@ public class EquilibriumLJ {
 		if (!Files.exists(Paths.get(dirName))) { 
 			Files.createDirectory(Paths.get(dirName));
 		}
-		Box equil = equilibrate(800,rho,t);
+		Box equil = equilibrate(800,rho,t);/**creates the initial config with 800 particles*/
 		for (int i= 0; i<numConfigs; i++) {
-			equil = equilibrate(equil,t);
+			equil = equilibrate(equil,t);/**create more configs*/
 			System.out.println(equil.getD());
 			String p = dirName+"/file"+Integer.toString(i);
-			/**String path = "charles3/file"+Integer.toString(i);*/
-			/**String path = "rho"+rho100+"/HSfile"+Integer.toString(i);*/
-
+			/**String path = "rho"+rho100+"/HSfile"+Integer.toString(i); FOR HS TESTING*/
 			FileWriter f = new FileWriter(p);
 			f.write(equil.toString());
 			f.close();
 		}
 	}
 
-	/**generates an equilibrium HS in 2D with given density
+	/**FOR TESTING HARD SPHERE: BENCHMARK SYSTEM 
+	generates an equilibrium HS in 2D with given density
  *      @param n int, the number of particles in the fundamental simu box
  *      @param rho double, the number density
- *      @return Particle[] the list of the particles */
+ *      @return Particle[] the list of the particles
         public static Box equilibrateHS(int n, double rho) {
                 double d = Math.sqrt(n*(1.0/rho));
                 Box pandora = new Box(n,d,2.5);
@@ -57,9 +56,9 @@ public class EquilibriumLJ {
                 return pandora;
         }
 
-	/**generates an equilibrium HS in 2D from an existing config
+	generates an equilibrium HS in 2D from an existing config
  *  	@param pandora Box, the given already-equilibrated configuration
- *      @return Particle[] the list of the particles */
+ *      @return Particle[] the list of the particles
         public static Box equilibrateHS(Box pandora) {
                 int n = pandora.getN();
                 double d = pandora.getD();
@@ -85,7 +84,8 @@ public class EquilibriumLJ {
                 return pandora;
         }
 
-
+*/
+	
 	/**generates an equilibrium LJ in 2D with given density and temperature 
  * 	@param n int, the number of particles in the fundamental simu box
  * 	@param rho double, the number density
@@ -95,7 +95,7 @@ public class EquilibriumLJ {
 		double d = Math.sqrt(n*(1.0/rho));	
 		Box pandora = new Box(n,d,LjPotential.rc);
 		double displace = 0.6;
-		int sweeps = 3000;
+		int sweeps = 3000;/**change accordingly if not equilibrated enough*/
 		for (double t = 0.6; t >= temperature; t = t*0.98) {
 			for (int i=1; i<= sweeps*n; i++) {
                         	int ind = (int) Math.floor(Box.getRandomNumberInRange(0.0,n));
@@ -105,9 +105,6 @@ public class EquilibriumLJ {
 				if (!Boltzmann.accept(newE,oldE,t)) {
                                 	pandora.move(proposedMove.reverse());
 				}
-				/**if (i%n==0) {
-					System.out.println(pandora.getEnergy()/n);
-				}*/
 			}
 			System.out.println(t + " " + pandora.getEnergy()/n);
 		}
@@ -132,9 +129,6 @@ public class EquilibriumLJ {
                                 if (!Boltzmann.accept(newE,oldE,t)) {
                                         pandora.move(proposedMove.reverse());
                                 }
-                                /**if (i%n==0) {
- *                                         System.out.println(pandora.getEnergy()/n);
- *                                                                         }*/
                         }
                         System.out.println(t + " " + pandora.getEnergy()/n);
                 }
