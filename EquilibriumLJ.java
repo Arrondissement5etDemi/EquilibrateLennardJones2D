@@ -17,7 +17,6 @@ public class EquilibriumLJ {
 		Box equil = equilibrate(800,rho,t);/**creates the initial config with 800 particles*/
 		for (int i= 0; i<numConfigs; i++) {
 			equil = equilibrate(equil,t);/**create more configs*/
-			System.out.println(equil.getD());
 			String p = dirName+"/file"+Integer.toString(i);
 			/**String path = "rho"+rho100+"/HSfile"+Integer.toString(i); FOR HS TESTING*/
 			FileWriter f = new FileWriter(p);
