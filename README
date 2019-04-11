@@ -1,0 +1,26 @@
+The main function is in EquilibriumLJ.java
+
+To compile, use the command
+
+$ javac EquilibriumLJ.java
+
+then command run:
+
+$ java EquilibriumLJ 0.65 0.56 
+
+where 0.65 is the number density rho=N/V and 0.56 is the temperature T*=1/kT. 
+Please run according to the rho and T* you like.
+
+For the code to run successfully, please create a directory before running named like "rho65T56". 
+where 65 and 56 are 100*rho and 100*T, respectively.
+The output configs will be in the folder created, named "file0", "file1", etc. There will be 100 files.
+On the screen (or .out file) will be shown the average energy at each particle for each config generated.
+If the energies shown are dropping, the system is not well equilibrated. 
+In this case please increase the value of "sweeps" in EquilibriumLJ.java
+
+IMPORTANT ASSUMPTIONS FOR THE PROGRAM
+r0 and epsilon in the LJ potential in our program are set to be 1.
+The unit cell side length should be at least twice the LJ cutoff distance, because we are using minimal image.
+
+If you have any questions, please write to hainaw@princeton.edu 
+Merci :)
