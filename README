@@ -7,14 +7,15 @@ $ javac EquilibriumLJ.java
 
 then command run:
 
-$ java EquilibriumLJ 0.65 0.56 
+$ java EquilibriumLJ 0.65 0.56 100
 
 where 0.65 is the number density rho=N/V and 0.56 is the temperature T*=1/kT. 
+100 is the number of configs generated.
 Please run according to the rho and T* you like.
 
-For the code to run successfully, please create a directory before running named like "rho65t56". 
-where 65 and 56 are 100*rho and 100*T, respectively.
-The output configs will be in the folder created, named "file0", "file1", etc. There will be 100 files.
+A directory named like "rho65t56" will be created if it doesn't exist already. 
+where 65 and 56 are 100*rho and 100*T (rounded to nearest integer), respectively.
+The output configs will be in the folder created, named "file0", "file1", etc. There will be 100 files for the example above.
 On the screen (or in an .out file) will be shown the average energy at each particle for each config generated.
 If the energies shown are dropping, the system is not well equilibrated. 
 In this case please increase the value of "sweeps" in EquilibriumLJ.java
