@@ -95,7 +95,8 @@ public class EquilibriumLJ {
 		Box pandora = new Box(n,d,LjPotential.rc);
 		double displace = 0.6;
 		int sweeps = 3000;/**change accordingly if not equilibrated enough*/
-		for (double t = 0.6; t >= temperature; t = t*0.98) {
+		for (double t = temperature; t >= temperature; t = t*0.98) { 
+		/**In the line above, if simu annealing needed, please set the initial t to a value > tempearture*/
 			for (int i=1; i<= sweeps*n; i++) {
                         	int ind = (int) Math.floor(Box.getRandomNumberInRange(0.0,n));
                         	double oldE = pandora.partiE(ind);
