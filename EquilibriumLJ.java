@@ -14,8 +14,7 @@ public class EquilibriumLJ {
 			String rho100 = Integer.toString((int)Math.round(rho*100));
 			String t100 = Integer.toString((int)Math.round(t*100));
 			String path = "rho"+rho100+"t"+t100+"/file"+Integer.toString(i);
-			/**String path = "charles3/file"+Integer.toString(i);*/
-			/**String path = "rho"+rho100+"/HSfile"+Integer.toString(i);*/
+			/**String path = "rho"+rho100+"/HSfile"+Integer.toString(i); FOR HS TESTING*/
 			FileWriter f = new FileWriter(path);
 			f.write(equil.toString());
 			f.close();
