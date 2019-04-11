@@ -6,10 +6,11 @@ public class EquilibriumLJ {
 	public static void main(String[] args) throws IOException{
 		double rho = Double.parseDouble(args[0]);
                 double t = Double.parseDouble(args[1]);
-		Box equil = equilibrate(2000,rho,t);
+		Box equil = equilibrate(2000,rho,t); /**generates the initial equilibrated config*/
 		for (int i= 0; i<1; i++) {
-			equil = equilibrate(equil,t);
-			System.out.println(equil.getD());
+			equil = equilibrate(equil,t); /**generates more configs*/
+			/**System.out.println(equil.getD());*/
+			/**WRITE THE CONGIGS TO FILES, ONE FILE FOR EACH CONFIG!*/
 			String rho100 = Integer.toString((int)Math.round(rho*100));
 			String t100 = Integer.toString((int)Math.round(t*100));
 			String path = "rho"+rho100+"t"+t100+"/file"+Integer.toString(i);
@@ -86,7 +87,7 @@ public class EquilibriumLJ {
  * 	@return Particle[] the list of the particles */
 	public static Box equilibrate(int n, double rho, double temperature) {
 		double d = Math.sqrt(n*(1.0/rho));	
-		Box pandora = new Box(n,d,LjPotential.rc);
+		Box pandora = new Box(n,d,LjPotential.rc);/**create a box with n particles, dimension d, cutoff radius rc*/
 		double displace = 0.6;
 		int sweeps = 3000;
 		for (double t = 1.0; t >= temperature; t = t*0.98) {
@@ -98,9 +99,6 @@ public class EquilibriumLJ {
 				if (!Boltzmann.accept(newE,oldE,t)) {
                                 	pandora.move(proposedMove.reverse());
 				}
-				/**if (i%n==0) {
-					System.out.println(pandora.getEnergy()/n);
-				}*/
 			}
 			System.out.println(t + " " + pandora.getEnergy()/n);
 		}
@@ -125,9 +123,6 @@ public class EquilibriumLJ {
                                 if (!Boltzmann.accept(newE,oldE,t)) {
                                         pandora.move(proposedMove.reverse());
                                 }
-                                /**if (i%n==0) {
- *                                         System.out.println(pandora.getEnergy()/n);
- *                                                                         }*/
                         }
                         System.out.println(t + " " + pandora.getEnergy()/n);
                 }
