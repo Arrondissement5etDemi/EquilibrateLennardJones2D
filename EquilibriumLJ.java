@@ -1,4 +1,5 @@
 import java.util.*;
+import java.nio.file.*;
 import java.io.*;
 /**A class that generates equilibrium LJ configs in 2D*/
 
@@ -6,26 +7,31 @@ public class EquilibriumLJ {
 	public static void main(String[] args) throws IOException{
 		double rho = Double.parseDouble(args[0]);
                 double t = Double.parseDouble(args[1]);
-		Box equil = equilibrate(2000,rho,t); /**generates the initial equilibrated config*/
-		for (int i= 0; i<1; i++) {
-			equil = equilibrate(equil,t); /**generates more configs*/
-			/**System.out.println(equil.getD());*/
-			/**WRITE THE CONGIGS TO FILES, ONE FILE FOR EACH CONFIG!*/
-			String rho100 = Integer.toString((int)Math.round(rho*100));
-			String t100 = Integer.toString((int)Math.round(t*100));
-			String path = "rho"+rho100+"t"+t100+"/file"+Integer.toString(i);
-			/**String path = "rho"+rho100+"/HSfile"+Integer.toString(i); FOR HS TESTING*/
-			FileWriter f = new FileWriter(path);
+		int numConfigs = Integer.parseInt(args[2]);
+		String rho100 = Integer.toString((int)Math.round(rho*100));
+                String t100 = Integer.toString((int)Math.round(t*100));
+		String dirName = "rho"+rho100+"t"+t100;
+		if (!Files.exists(Paths.get(dirName))) { 
+			Files.createDirectory(Paths.get(dirName));
+		}
+		Box equil = equilibrate(800,rho,t);
+		for (int i= 0; i<numConfigs; i++) {
+			equil = equilibrate(equil,t);
+			System.out.println(equil.getD());
+			String p = dirName+"/file"+Integer.toString(i);
+			/**String path = "charles3/file"+Integer.toString(i);*/
+			/**String path = "rho"+rho100+"/HSfile"+Integer.toString(i);*/
+
+			FileWriter f = new FileWriter(p);
 			f.write(equil.toString());
 			f.close();
 		}
 	}
 
-/**BENCHMARK TESTING OF 2d HARD SPHERE SYSTEMS
-	generates an equilibrium HS in 2D with given density
+	/**generates an equilibrium HS in 2D with given density
  *      @param n int, the number of particles in the fundamental simu box
  *      @param rho double, the number density
- *      @return Particle[] the list of the particles 
+ *      @return Particle[] the list of the particles */
         public static Box equilibrateHS(int n, double rho) {
                 double d = Math.sqrt(n*(1.0/rho));
                 Box pandora = new Box(n,d,2.5);
@@ -50,10 +56,10 @@ public class EquilibriumLJ {
                 }
                 return pandora;
         }
-	
-	generates an equilibrium HS in 2D from an existing config
+
+	/**generates an equilibrium HS in 2D from an existing config
  *  	@param pandora Box, the given already-equilibrated configuration
- *      @return Particle[] the list of the particles 
+ *      @return Particle[] the list of the particles */
         public static Box equilibrateHS(Box pandora) {
                 int n = pandora.getN();
                 double d = pandora.getD();
@@ -78,7 +84,7 @@ public class EquilibriumLJ {
                 }
                 return pandora;
         }
-*/
+
 
 	/**generates an equilibrium LJ in 2D with given density and temperature 
  * 	@param n int, the number of particles in the fundamental simu box
@@ -87,10 +93,10 @@ public class EquilibriumLJ {
  * 	@return Particle[] the list of the particles */
 	public static Box equilibrate(int n, double rho, double temperature) {
 		double d = Math.sqrt(n*(1.0/rho));	
-		Box pandora = new Box(n,d,LjPotential.rc);/**create a box with n particles, dimension d, cutoff radius rc*/
+		Box pandora = new Box(n,d,LjPotential.rc);
 		double displace = 0.6;
 		int sweeps = 3000;
-		for (double t = 1.0; t >= temperature; t = t*0.98) {
+		for (double t = 0.6; t >= temperature; t = t*0.98) {
 			for (int i=1; i<= sweeps*n; i++) {
                         	int ind = (int) Math.floor(Box.getRandomNumberInRange(0.0,n));
                         	double oldE = pandora.partiE(ind);
@@ -99,6 +105,9 @@ public class EquilibriumLJ {
 				if (!Boltzmann.accept(newE,oldE,t)) {
                                 	pandora.move(proposedMove.reverse());
 				}
+				/**if (i%n==0) {
+					System.out.println(pandora.getEnergy()/n);
+				}*/
 			}
 			System.out.println(t + " " + pandora.getEnergy()/n);
 		}
@@ -123,6 +132,9 @@ public class EquilibriumLJ {
                                 if (!Boltzmann.accept(newE,oldE,t)) {
                                         pandora.move(proposedMove.reverse());
                                 }
+                                /**if (i%n==0) {
+ *                                         System.out.println(pandora.getEnergy()/n);
+ *                                                                         }*/
                         }
                         System.out.println(t + " " + pandora.getEnergy()/n);
                 }
