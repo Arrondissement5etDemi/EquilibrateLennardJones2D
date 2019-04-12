@@ -74,7 +74,7 @@ public class Box {
 	}
 
 	/**gets the energy felt by a single particle in the box using minimum image
- * 	@param ind integer, the index of the particle in partiArr 
+ * 	@param ind int, the index of the particle in partiArr 
  * 	@return double, the energy felt by the particle
  * 	@assume Box side length > 2 * cutcoff */
 	public double partiE(int ind) {
