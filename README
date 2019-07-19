@@ -7,10 +7,11 @@ $ javac EquilibriumLJ.java
 
 then command run:
 
-$ java EquilibriumLJ 0.65 0.56 100
+$ java EquilibriumLJ 0.65 0.56 0 100 6.0
 
 where 0.65 is the number density rho=N/V and 0.56 is the temperature T*=1/kT. 
-100 is the number of configs generated.
+0 and 100 are the start and end file labels, there will be 100 configs generated.
+6.0 is the cutoff radius of LJ potential.
 Please run according to the rho and T* and number of configs you like.
 
 A directory named like "rho65t56" will be created if it doesn't exist already. 
