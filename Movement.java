@@ -1,33 +1,30 @@
 public class Movement {
 	private int ind;
-	private double direction;
-	private double moveDist;
+	private double dx;
+	private double dy;
 
-	public Movement(int i, double d, double dist) {
+	public Movement(int i, double x, double y) {
 		ind = i;
-		direction = d;
-		moveDist = dist;
+		dx = x;
+		dy = y;
 	}	
 
 	public int getInd() {
 		return ind;
 	}
 
-	public double getDirection() {
-		return direction;
+	public double getDx() {
+		return dx;
 	}
 
-	public double getMoveDist() {
-		return moveDist;
+	public double getDy() {
+		return dy;
 	}
 	
 	/** get the reverse movement where the direction is the opposite 
  * 	@return the reverse movement */
 	public Movement reverse() {
-		int resultI = ind;
-		double resultDist = moveDist;
-		double resultD = (Math.PI + direction)%(2*Math.PI);
-		Movement result = new Movement(resultI, resultD, resultDist);
+		Movement result = new Movement(ind, -dx, -dy);
 		return result;
 	}
 }

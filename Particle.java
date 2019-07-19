@@ -1,13 +1,16 @@
 import java.util.*;
 
 public class Particle {
+        //data
 	private double x,y;
 
+	//constructor
         public Particle(double xx, double yy) {
 		x = xx;
                 y = yy;
         }
 
+        //gets the coordinates
         public double getx() {
 		return x;
 	}
@@ -16,6 +19,7 @@ public class Particle {
 		return y;
 	}
 
+	//modifiers
 	public void setX(double xx) {
 		x = xx;
 	}
@@ -24,7 +28,7 @@ public class Particle {
 		y = yy;
 	}
 
-	/**distance to another particle*/
+	//distance to another city
 	public double distanceto(Particle another) {
 		double anotherX = another.getx();
                 double anotherY = another.gety();
